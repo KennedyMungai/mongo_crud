@@ -13,3 +13,9 @@ app = FastAPI()
 # Register routes
 app.include_router(user_router, prefix="/user")
 app.include_router(event_router, prefix="/event")
+
+
+@app.on_event("startup")
+def on_startup():
+    """Connecting to the database on startup"""
+    conn()
