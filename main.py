@@ -19,3 +19,8 @@ app.include_router(event_router, prefix="/event")
 def on_startup():
     """Connecting to the database on startup"""
     conn()
+
+
+@app.get("/")
+async def home():
+    return RedirectResponse(url="/event")
