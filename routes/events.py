@@ -3,7 +3,8 @@ from typing import List
 
 from fastapi import APIRouter, Body, HTTPException, status
 
-from models.events import Event
+from database.connection import get_session
+from models.events import Event, EventUpdate
 
 event_router = APIRouter(tags=["Events"])
 
