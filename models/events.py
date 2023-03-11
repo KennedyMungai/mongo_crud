@@ -4,6 +4,12 @@ from typing import Optional, List
 
 
 class Event(SQLModel, table=True):
+    """The template for Event data
+
+    Args:
+        SQLModel (Class): The parent class of the SQL model
+        table (bool, optional): Identifies the type. Defaults to True.
+    """
     id: int = Field(default=None, primary_key=True)
     title: str
     image: str
@@ -12,6 +18,7 @@ class Event(SQLModel, table=True):
     location: str
 
     class Config:
+        """The config subclass"""
         arbitrary_types_allowed = True
         schema_extra = {
             "example": {
