@@ -9,3 +9,15 @@ class Event(SQLModel, table=True):
     image: str
     description: str
     tags: List[str] = Field(sa_column=Column(JSON))
+    location: str
+
+    class Config:
+        arbitrary_types_allowed = True
+        schema_extra = {
+            "example": {
+                "title": "FastAPI Book Launch",
+                "image": "https://linktomyimage.com/image.png",
+                "tags": ["python", "fastapi", "book", "launch"],
+                "location": "Google Meet"
+            }
+        }
