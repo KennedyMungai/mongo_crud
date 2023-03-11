@@ -23,4 +23,9 @@ def on_startup():
 
 @app.get("/")
 async def home():
+    """The root endpoint
+
+    Returns:
+        RedirectResponse: Redirects response
+    """
     return RedirectResponse(url="/event")
