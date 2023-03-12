@@ -6,3 +6,6 @@ from fastapi import HTTPException, status
 from jose import JWTError, jwt
 
 from database.database import Settings
+
+
+settings = Settings()
