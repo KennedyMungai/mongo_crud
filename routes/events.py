@@ -22,3 +22,17 @@ async def retrieve_all_events() -> List[Event]:
     """
     events = await event_database.get_all()
     return events
+
+
+@event_router.get("/{id}", response_model=Event)
+async def retrieve_event(id: PydanticObjectId) -> Event:
+    """The endpoint to retrieve a specific event
+
+    Args:
+        id (PydanticObjectId): The identifier field for the dta
+
+    Returns:
+        Event: The event data itself
+    """
+    event = await event_database.get(id)
+    return event
