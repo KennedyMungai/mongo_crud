@@ -39,3 +39,13 @@ class User(Document):
 #     """
 #     email: EmailStr
 #     password: str
+
+
+class TokenResponse(BaseModel):
+    """A new class to use with the endpoint authentication
+
+    Args:
+        BaseModel (_type_: The class to be used wit function authentication
+    """
+    access_token: str
+    token_type: str
