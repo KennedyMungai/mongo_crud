@@ -79,3 +79,25 @@ async def update_event(id: PydanticObjectId, body: EventUpdate) -> Event:
                             detail="The event with the supplied Id does not exist")
 
     return updated_event
+
+
+@event_router.delete("/{id}")
+async def delete_event(id: PydanticObjectId) -> dict:
+    """The delete event endpoint
+
+    Args:
+        id (PydanticObjectId): The event Id
+
+    Raises:
+        HTTPException: Raising exceptions incase of a HTTP error
+
+    Returns:
+        dict: A message to show successful execution of the logic
+    """
+    event = await event_database.delete(id)
+
+    if not event:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail="The Event with the supplied ID does not exist")
+
+    return {"Message": : "Event deleted successfully"}
