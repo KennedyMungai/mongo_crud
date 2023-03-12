@@ -98,3 +98,19 @@ class Database:
             return False
         await doc.update(update_query)
         return doc
+
+    async def delete(self, id: PydanticObjectId) -> bool:
+        """The delete document endpoint
+
+        Args:
+            id (PydanticObjectId): The type of the Id
+
+        Returns:
+            bool: Returns the state of the delete operation
+        """
+        doc = await self.get(id)
+
+        if not doc:
+            return False
+
+        await doc.delete()
