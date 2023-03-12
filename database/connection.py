@@ -44,3 +44,19 @@ class Database:
         """
         await document.create()
         return
+
+    async def get(self, id: PydanticObjectId) -> Any:
+        """The get specific event function
+
+        Args:
+            id (PydanticObjectId): The Id type
+
+        Returns:
+            Any: Returns a non-specified data type
+        """
+        doc = await self.model.get(id)
+
+        if doc:
+            return doc
+
+        return False
