@@ -2,7 +2,7 @@ from typing import Optional
 
 from beanie import init_beanie
 from motor.motor_asyncio import AsyncIOMotorClient
-from pydantic import BaseSettings
+from pydantic import BaseSettings, BaseModel
 
 from models.events import Event
 from models.users import User
@@ -28,3 +28,10 @@ class Settings(BaseSettings):
     class Config:
         """The configuration for the settings class"""
         env_file = ".env"
+
+
+class Database:
+    """The DB class"""
+
+    def __init__(self, model):
+        self.model = model
