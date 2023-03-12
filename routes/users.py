@@ -30,6 +30,9 @@ async def sign_user_up(user: User) -> dict:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT,
                             detail="The email provided is already in use")
 
+    hashed_password = hash_password.create_hash(user.password)
+    user.password = hashed_password
+
     await user_database.save(user)
 
     return {"Message": "User created successfully"}
