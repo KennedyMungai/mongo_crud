@@ -11,6 +11,7 @@ class Event(Document):
     Args:
         Document (MongoDB type): A level of data storage in MongoDB
     """
+    creator: Optional[str]
     title: str
     image: str
     description: str
