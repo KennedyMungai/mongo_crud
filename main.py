@@ -17,6 +17,13 @@ app.include_router(event_router, prefix="/event")
 # Register origins
 origins = ["*"]
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
+
 
 @app.on_event("startup")
 def on_startup():
