@@ -54,6 +54,8 @@ async def create_event(body: Event, user: str = Depends(authenticate)) -> dict:
     Returns:
         dict: A message to show successful execution
     """
+    body.creator = user
+
     await event_database.save(body)
 
     return {"Message": "Event created successfully"}
