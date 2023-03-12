@@ -1,5 +1,5 @@
 """The events routes file"""
-from typing import List
+from typing import List, select
 
 from fastapi import APIRouter, Body, HTTPException, status, Depends, Request
 
@@ -11,13 +11,18 @@ event_router = APIRouter(tags=["Events"])
 events = []
 
 
-@event_router.get("/")
-async def retrieve_all_events() -> List[Event]:
-    """The base route for the vent_router route
+@event_router.get("/", response_model=List[Event])
+async def retrieve_all_events(session=Depends(get_session)) -> List[Event]:
+    """A rewritten function for retrieving all events from the database
+
+    Args:
+        session (Session, optional): The session. Defaults to Depends(get_session).
 
     Returns:
-        List[Event]: Returns a list of events
+        List[Event]: All events in a list
     """
+    statement = select(Event)
+    events = session.exec(statement).all("")
     return events
 
 
