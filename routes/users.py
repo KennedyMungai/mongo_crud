@@ -40,7 +40,7 @@ async def sign_user_up(user: User) -> dict:
     return {"Message": "User created successfully"}
 
 
-@user_router.post("/signin")
+@user_router.post("/signin", response_model=TokenResponse())
 async def sign_user_in(user: OAuth2PasswordRequestForm = Depends()) -> dict:
     """The user sign in endpoint
 
