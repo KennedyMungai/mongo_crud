@@ -58,6 +58,10 @@ async def create_event(new_event: Event, session=Depends(get_session)) -> dict:
     session.commit()
     session.refresh(new_event)
 
+    return {
+        "Message": "Event created successfully"
+    }
+
 
 @event_router.delete("/{id}")
 async def delete_event(_id: int) -> dict:
