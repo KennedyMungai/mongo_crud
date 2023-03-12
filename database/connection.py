@@ -72,3 +72,29 @@ class Database:
         """
         docs = await self.model.find_all().to_list()
         return docs
+
+    async def update(self, id: PydanticObjectId, body: BaseModel) -> Any:
+        """The data update endpoint
+
+        Args:
+            id (PydanticObjectId): Something
+            body (BaseModel): The body of the updating model
+
+        Returns:
+            Any: Any datatype is valid
+        """
+        doc_id = id
+        des_body = body.dict()
+        des_body = {k: v in des_body.items() if v is not None}
+        update_query = {
+            "$set": {
+                field: value for field, value in des_body.items()
+            }
+        }
+
+        doc = await self.get(doc_id)
+
+        if not doc:
+            return False
+        await doc.update(update_query)
+        return doc
