@@ -1,6 +1,7 @@
 """The entrypoint to the project"""
 import uvicorn
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
 
 from database.connection import conn
