@@ -44,20 +44,19 @@ async def retrieve_event(_id: int) -> Event:
 
 
 @event_router.post("/new")
-async def create_event(_body: Event = Body(...)) -> dict:
-    """The crate event function
+async def create_event(new_event: Event, session=Depends(get_session)) -> dict:
+    """A rewritten create_event function that uses the database
 
     Args:
-        _body (Event, optional): The event data. Defaults to Body(...).
+        new_event (Event): The Event data of type Event
+        session (_type_, optional): _description_. Defaults to Depends(get_session).
 
     Returns:
-        dict: The message to show the function has been successfully executed
+        dict: _description_
     """
-    events.append(_body)
-
-    return {
-        "Message": "Event created successfully"
-    }
+    session.add(new_event)
+    session.commit()
+    session.refresh(new_event)
 
 
 @event_router.delete("/{id}")
