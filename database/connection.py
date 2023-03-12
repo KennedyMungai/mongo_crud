@@ -1,6 +1,6 @@
 from typing import Optional, List
 
-from beanie import init_beanie
+from beanie import init_beanie, PydanticObjectId
 from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic import BaseSettings, BaseModel
 
