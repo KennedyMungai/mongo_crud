@@ -26,26 +26,29 @@ async def retrieve_all_events(session=Depends(get_session)) -> List[Event]:
     return events
 
 
-@event_router.get("/{id}")
-async def retrieve_event(_id: int) -> Event:
-    """The endpoint to retrieve specific events
+@event_router.get("/{id}", response_model=Event)
+async def retrieve_event(id: int, session=Depends(get_session)) -> Event:
+    """Rewrote the retrieve_event function
 
     Args:
-        id (int): The id of the event
+        id (int): The id of the event 
+        session (Session, optional): The sb session. Defaults to Depends(get_session).
 
     Raises:
-        HTTPException: Raises an 404 error incase the event is not found
+        HTTPException: If the event does not exist, a 404 error is raised
 
     Returns:
-        Event: The template for the event data
+        Event: The returned event
     """
-    for event in events:
-        if event.id == _id:
-            return event
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="The event with supplied ID does not exist"
-        )
+    event = session.get(Event, id)
+
+    if event:
+        return event
+
+    raise HTTPException(
+        status_code=status.HTTP_404_NOT_FOUND,
+        detail="The event with the supplied ID does not exist"
+    )
 
 
 @event_router.post("/new")
