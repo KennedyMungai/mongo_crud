@@ -2,7 +2,7 @@
 from typing import List
 
 from beanie import PydanticObjectId
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, status, Depends
 
 from database.connection import Database
 from models.events import Event, EventUpdate
@@ -45,7 +45,7 @@ async def retrieve_event(id: PydanticObjectId) -> Event:
 
 
 @event_router.post("/new")
-async def create_event(body: Event) -> dict:
+async def create_event(body: Event, user: str = Depends(authenticate)) -> dict:
     """The create Event endpoint
 
     Args:
@@ -60,7 +60,7 @@ async def create_event(body: Event) -> dict:
 
 
 @event_router.put("/{id}", response_model=Event)
-async def update_event(id: PydanticObjectId, body: EventUpdate) -> Event:
+async def update_event(id: PydanticObjectId, body: EventUpdate, user: str = Depends(authenticate)) -> Event:
     """The update event endpoint
 
     Args:
@@ -83,7 +83,7 @@ async def update_event(id: PydanticObjectId, body: EventUpdate) -> Event:
 
 
 @event_router.delete("/{id}")
-async def delete_event(id: PydanticObjectId) -> dict:
+async def delete_event(id: PydanticObjectId, user: str = Depends(authenticate)) -> dict:
     """The delete event endpoint
 
     Args:
