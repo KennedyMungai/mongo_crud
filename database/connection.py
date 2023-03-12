@@ -4,8 +4,8 @@ from beanie import init_beanie
 from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic import BaseSettings
 
-from models.users import User
 from models.events import Event
+from models.users import User
 
 
 class Settings(BaseSettings):
@@ -21,7 +21,7 @@ class Settings(BaseSettings):
         client = AsyncIOMotorClient(self.DATABASE_URL)
 
         await init_beanie(
-            database=client.get_default_database(),
+            database=client.get_default_database(), document_models=[Event, User],
             document_models=[]
         )
 
