@@ -1,9 +1,9 @@
 """The route script for the users"""
 from fastapi import APIRouter, HTTPException, status
 
+from auth.hash_password import HashPassword
 from database.connection import Database
 from models.users import User, UserSignIn
-
 
 user_router = APIRouter(tags=["User"])
 
