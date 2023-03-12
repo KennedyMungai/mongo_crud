@@ -1,5 +1,5 @@
 """The route script for the users"""
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 
 from auth.hash_password import HashPassword
@@ -41,7 +41,7 @@ async def sign_user_up(user: User) -> dict:
 
 
 @user_router.post("/signin")
-async def sign_user_in(user: UserSignIn) -> dict:
+async def sign_user_in(user: OAuth2PasswordRequestForm = Depends()) -> dict:
     """The user sign in endpoint
 
     Args:
