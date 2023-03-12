@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 
 from beanie import init_beanie
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -60,3 +60,15 @@ class Database:
             return doc
 
         return False
+
+    async def get_all(self) -> List(Any):
+        """The function to retrieve all Events
+
+        Args:
+            self (_type_): _description_
+
+        Returns:
+            _type_: _description_
+        """
+        docs = await self.model.find_all().to_list()
+        return docs
