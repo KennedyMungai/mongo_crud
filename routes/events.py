@@ -75,6 +75,12 @@ async def update_event(id: PydanticObjectId, body: EventUpdate, user: str = Depe
     Returns:
         Event: The data after the update
     """
+    event = await event_database.get(id)
+
+    if event.creator != user:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="Operation not allowed")
+
     updated_event = await event_database.update(id, body)
 
     if not updated_event:
@@ -103,4 +109,4 @@ async def delete_event(id: PydanticObjectId, user: str = Depends(authenticate)) 
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail="The Event with the supplied ID does not exist")
 
-    return {"Message": : "Event deleted successfully"}
+    return {"Message":: "Event deleted successfully"}
