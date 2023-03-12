@@ -41,3 +41,18 @@ async def retrieve_event(id: PydanticObjectId) -> Event:
                             detail="The Event with the supplied Id does not exist")
 
     return event
+
+
+@event_router.post("/new")
+async def create_event(body: Event) -> dict:
+    """The create Event endpoint
+
+    Args:
+        body (Event): The data of teh new event
+
+    Returns:
+        dict: A message to show successful execution
+    """
+    await event_database.save(body)
+
+    return {"Message": "Event created successfully"}
