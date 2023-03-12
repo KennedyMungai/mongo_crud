@@ -6,3 +6,5 @@ from models.users import User, UserSignIn
 
 
 user_router = APIRouter(tags=["User"])
+
+user_database = Database(User)
