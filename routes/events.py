@@ -35,4 +35,9 @@ async def retrieve_event(id: PydanticObjectId) -> Event:
         Event: The event data itself
     """
     event = await event_database.get(id)
+
+    if not event:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail="The Event with the supplied Id does not exist")
+
     return event
