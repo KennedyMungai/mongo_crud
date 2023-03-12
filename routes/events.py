@@ -6,6 +6,7 @@ from fastapi import APIRouter, HTTPException, status
 
 from database.connection import Database
 from models.events import Event, EventUpdate
+from auth.authenticate import authenticate
 
 
 event_database = Database(Event)
