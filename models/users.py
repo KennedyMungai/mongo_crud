@@ -31,11 +31,11 @@ class User(Document):
         }
 
 
-class UserSignIn(BaseModel):
-    """The template for the UserSIgnIn data
+# class UserSignIn(BaseModel):
+#     """The template for the UserSIgnIn data
 
-    Args:
-        BaseModel (Class ): The parent class
-    """
-    email: EmailStr
-    password: str
+#     Args:
+#         BaseModel (Class ): The parent class
+#     """
+#     email: EmailStr
+#     password: str
