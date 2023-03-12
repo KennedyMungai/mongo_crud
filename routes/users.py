@@ -8,6 +8,7 @@ from models.users import User, UserSignIn
 user_router = APIRouter(tags=["User"])
 
 user_database = Database(User)
+hash_password = HashPassword()
 
 
 @user_router.post("/signup")
