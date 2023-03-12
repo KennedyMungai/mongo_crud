@@ -54,14 +54,19 @@ async def sign_user_in(user: OAuth2PasswordRequestForm = Depends()) -> dict:
     Returns:
         dict: A message to show successful data execution
     """
-    user_exist = await User.find_one(User.email == user.email)
+    user_exist = await User.find_one(User.email == user.username)
 
     if not user_exist:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                             detail="The user with the provided email does not exist")
 
-    if user_exist.password == user.password:
-        return {"Message": "User signed in successfully"}
+    if hash_password.verify_hash(user.password, user_exist.password):
+        access_token = create_access_token(user_exist.email)
+
+        return {
+            "access_token": access_token,
+            "token_type": "Bearer"
+        }
 
     raise HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
