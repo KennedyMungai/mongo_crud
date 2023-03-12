@@ -71,30 +71,33 @@ async def create_event(new_event: Event, session=Depends(get_session)) -> dict:
     }
 
 
-@event_router.delete("/{id}")
-async def delete_event(_id: int) -> dict:
-    """The endpoint to delete an event
+@event_router.delete("/delete/{id}")
+async def delete_event(id: int, session=Depends(get_session)) -> dict:
+    """Rewrote the delete single id endpoint
 
     Args:
-        _id (int): The id of the event
+        id (int): The id of the event
+        session (_type_, optional): The db session. Defaults to Depends(get_session).
 
     Raises:
-        HTTPException: Raises a 404 incase the event is missing
+        HTTPException: A 404 error is raised if the event id is not found
 
     Returns:
-        dict: The returned message on successful execution
+        dict: A message to show successful execution
     """
-    for event in events:
-        if event.id == _id:
-            events.remove(event)
+    event = session.get(Events, id)
 
-            return {
-                "Message": "Event deleted successfully"
-            }
+    if event:
+        session.delete(event)
+        session.commit()
+
+        return {
+            "Message": "Event deleted successfully"
+        }
 
     raise HTTPException(
         status_code=status.HTTP_404_NOT_FOUND,
-        detail="Event with supplied Id does not exist"
+        detail="The event with the supplied ID does not exist"
     )
 
 
