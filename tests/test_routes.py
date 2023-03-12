@@ -63,3 +63,8 @@ async def test_post_event(default_client: httpx.AsyncClient, access_token: str) 
     test_response = {
         "message": "Event created successfully"
     }
+
+    response = await default_client.post("/event/new", json=payload, headers=headers)
+
+    assert response.status_code == 200
+    assert response.json() == test_response
