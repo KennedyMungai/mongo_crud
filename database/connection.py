@@ -35,3 +35,12 @@ class Database:
 
     def __init__(self, model):
         self.model = model
+
+    async def save(self, document) -> None:
+        """Function to save any changes in the document
+
+        Args:
+            document (MongoDB data type): The base type of MongoDB
+        """
+        await document.create()
+        return
