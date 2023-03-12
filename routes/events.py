@@ -60,6 +60,18 @@ async def create_event(body: Event) -> dict:
 
 @event_router.put("/{id}", response_model=Event)
 async def update_event(id: PydanticObjectId, body: EventUpdate) -> Event:
+    """The update event endpoint
+
+    Args:
+        id (PydanticObjectId): The type of data for the Id
+        body (EventUpdate): The body of the updating event
+
+    Raises:
+        HTTPException: The error type for HTTPs
+
+    Returns:
+        Event: The data after the update
+    """
     updated_event = await event_database.update(id, body)
 
     if not updated_event:
