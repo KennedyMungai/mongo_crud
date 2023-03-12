@@ -4,6 +4,9 @@ from beanie import init_beanie
 from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic import BaseSettings
 
+from models.users import User
+from models.events import Event
+
 
 class Settings(BaseSettings):
     """The settings for connecting to the Mongo DB
