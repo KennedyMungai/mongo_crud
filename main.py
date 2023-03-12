@@ -14,6 +14,9 @@ app = FastAPI()
 app.include_router(user_router, prefix="/user")
 app.include_router(event_router, prefix="/event")
 
+# Register origins
+origins = ["*"]
+
 
 @app.on_event("startup")
 def on_startup():
