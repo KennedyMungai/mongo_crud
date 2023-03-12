@@ -1,0 +1,1 @@
+"""Simple arithmetic operations test"""
